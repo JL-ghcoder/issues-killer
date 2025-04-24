@@ -38,8 +38,9 @@ jobs:
         env:
           # 使用你在仓库中设置的secret
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          # 使用手动触发时提供的输入或默认为空(全部监控)
-          REPOS_TO_MONITOR: ${{ github.event.inputs.repos || '' }}
-          # 使用手动触发时提供的输入或默认关键词
-          SUSPICIOUS_KEYWORDS: ${{ github.event.inputs.keywords || 'spam,恶意,虚假,suspicious,Star,star,异常增长' }}
+          # 区分手动和自动触发的配置
+          # 自动触发时监控 JL-ghcoder/issues-killer
+          REPOS_TO_MONITOR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.repos || 'JL-ghcoder/issues-killer' }}
+          # 关键词列表 - 手动触发时使用用户输入，自动触发时使用默认值
+          SUSPICIOUS_KEYWORDS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.keywords || 'spam,恶意,虚假,suspicious,Star,star,异常增长' }}
         run: python issues_killer_actions.py
