@@ -21,8 +21,38 @@
 
 ## 安装方法
 
+**通过本地/服务器运行：**
+
 1. 在本地或者服务器运行 `issues_killer.py` 文件
 2. 完成配置流程
+3. 等待程序自动运行 (可以用screen进行进程管理)
+
+**通过Github Actions自动运行：**
+
+1. Fork 或克隆此仓库
+2. 确保你的仓库中包含 `issues_killer_actions.py` 和 `.github/workflows/issues_killer.yml` 文件
+3. 在你的仓库中，访问 Settings > Secrets and variables > Actions
+   点击 "New repository secret"
+   名称填写 `PERSONAL_ACCESS_TOKEN`
+   值填写创建的包含正确权限的 Token
+
+4. 工作流文件位于 .github/workflows/issues_killer.yml
+   你可以修改 cron 表达式来设置不同的执行频率:
+
+如果要修改执行频率：
+每小时执行: cron: '0 * * * *'
+每天执行: cron: '0 2 * * *' (UTC时间2:00，约等于北京时间10:00)
+每周执行: cron: '0 2 * * 1' (每周一)
+
+修改要监控的仓库:
+yamlREPOS_TO_MONITOR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.repos || 'your-username/your-repo' }}
+
+
+**通过Github Actions手动触发：**
+
+1. 访问仓库的 Actions 标签页
+2. 点击 "GitHub Issues Killer" 工作流
+3. 点击 "Run workflow" 按钮手动触发执行
 
 ### 初次设置
 
