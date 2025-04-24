@@ -4,7 +4,7 @@ on:
   # 定时触发
   schedule:
     # 每小时运行
-    - cron: - '0 * * * *'
+    - cron: '0 * * * *'
   
   # 允许手动触发
   workflow_dispatch:
