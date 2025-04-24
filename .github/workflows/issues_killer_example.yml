@@ -1,4 +1,4 @@
-name: GitHub Issues Killer
+name: GitHub Issue Killer
 
 on:
   # 定时触发
