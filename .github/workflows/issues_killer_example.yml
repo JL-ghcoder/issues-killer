@@ -3,16 +3,13 @@ name: GitHub Issues Killer
 on:
   # 定时触发
   schedule:
-    # 每小时整点运行 '0 * * * *'
-    # 每4小时运行一次 '0 */4 * * *'
-    # 每天凌晨2点运行 '0 2 * * *'
-
-    - cron: '0 * * * *'
+    # 每天凌晨2点运行 (UTC时间，对应北京时间上午10点)
+    - cron: '0 2 * * *'
   
   # 允许手动触发
   workflow_dispatch:
     inputs:
-      repos: 
+      repos:
         description: '要监控的仓库 (格式: owner/repo1,owner/repo2)，留空监控全部'
         required: false
       keywords:
@@ -23,12 +20,11 @@ on:
 jobs:
   scan-and-delete:
     runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
-      - name: Set up Python environment
-        uses: actions/checkout@v3
         
-      - name: 设置Python环境
+      - name: Set up Python environment
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
