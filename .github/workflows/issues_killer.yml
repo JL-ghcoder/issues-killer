@@ -3,9 +3,12 @@ name: GitHub Issues Killer
 on:
   # 定时触发
   schedule:
-    # 每小时运行
+    # 每五分钟运行一次
     # - cron: '0 * * * *'
-    - cron: '*/5 * * * *'
+    # - cron: '*/5 * * * *'
+
+    # 每天凌晨2点运行 (UTC时间，对应北京时间上午10点)
+    - cron: '0 2 * * *'
   
   # 允许手动触发
   workflow_dispatch:
